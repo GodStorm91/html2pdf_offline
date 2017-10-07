@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Item - Start Bootstrap Template</title>
+	<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+	<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+	<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- piexif.min.js is only needed for restoring exif data in resized images and when you 
+	    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/piexif.min.js" type="text/javascript"></script>
+	<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+	    This must be loaded before fileinput.min.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/sortable.min.js" type="text/javascript"></script>
+	<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+	    HTML files. This must be loaded before fileinput.min.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/purify.min.js" type="text/javascript"></script>
+	<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
+	   3.3.x versions without popper.min.js. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+	    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- the main fileinput plugin file -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/fileinput.min.js"></script>
+	<!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/themes/fa/theme.js"></script>
+	<!-- optionally if you need translation for your language then include  locale file as mentioned below -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/(lang).js"></script>
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div class="card mt-4">
+            <div class="card-body">
+              <h3 class="card-title">Product Name</h3>
+                <input type="text" class="form-control" id="usr">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Details</h3>
+				<textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Price</h3>
+                <input type="text" class="form-control" id="usr"> 
+                <div class="checkbox">
+  					<label><input type="checkbox" value="">Show Price to html</label>
+				</div>
+            </div>
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              Image Upload
+            </div>
+            <div class="card-body">
+              <input id="input-id" type="file" class="file" data-preview-file-type="text" onchnage="showImage(this)">
+            </div>
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+
+    </div>
+    <!-- /.container -->
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Title</h5></div>
+	    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>This is the title</h5></div>
+	  </div>
+	  <div class="row">
+	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Details</h5></div>
+	    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>This is the title</h5></div>
+	  </div>
+	  <div class="row">
+	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Price</h5></div>
+	    <div class="col-sm-10 card card-outline-secondary my-4 card-body">100$</div>
+	  </div>
+	  <div class="row">
+		  <div class="col-md-4">
+		    <div class="thumbnail">
+		        <img src="" alt="Nature" style="width:100%">
+		        <div class="caption">
+		          <p>Lorem ipsum...</p>
+		        </div>
+		    </div>
+		  </div>
+	  </div>
+	</div>
+
+	<script type="text/javascript">
+		document.on("ready", function(){
+
+		})
+	</script>
+
+  </body>
+
+</html>
