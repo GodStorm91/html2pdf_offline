@@ -16,6 +16,7 @@
 	<script src="vendor/jquery.ui.widget.js"></script>
 	<script src="js/jquery.iframe-transport.js"></script>
 	<script src="js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
   </head>
 
   <body>
@@ -31,15 +32,15 @@
           <div class="card mt-4">
             <div class="card-body">
               <h3 class="card-title">Product Name</h3>
-                <input type="text" class="form-control" id="usr">
+                <input type="text" class="form-control" id="product_name">
             </div>
             <div class="card-body">
               <h3 class="card-title">Details</h3>
-				<textarea class="form-control" rows="5" id="comment"></textarea>
+				<textarea class="form-control" rows="5" id="description"></textarea>
             </div>
             <div class="card-body">
               <h3 class="card-title">Price</h3>
-                <input type="text" class="form-control" id="usr"> 
+                <input type="text" class="form-control" id="price"> 
                 <div class="checkbox">
   					<label><input type="checkbox" value="">Show Price to html</label>
 				</div>
@@ -57,7 +58,7 @@
             </div>
           </div>
           <!-- /.card -->
-
+          <input type="submit" class="btn btn-info" value="Preview">
         </div>
         <!-- /.col-lg-9 -->
 
@@ -65,32 +66,57 @@
 
     </div>
     <!-- /.container -->
-	<div class="container">
-	  <div class="row">
-	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Title</h5></div>
-	    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>This is the title</h5></div>
-	  </div>
-	  <div class="row">
-	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Details</h5></div>
-	    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>This is the title</h5></div>
-	  </div>
-	  <div class="row">
-	    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Price</h5></div>
-	    <div class="col-sm-10 card card-outline-secondary my-4 card-body">100$</div>
-	  </div>
-	  <div class="row">
-		  <div class="col-md-4">
-		    <div class="thumbnail">
-		        <img src="" alt="Nature" style="width:100%" id="target">
-		        <div class="caption">
-		          <p>Lorem ipsum...</p>
-		        </div>
-		    </div>
-		  </div>
-	  </div>
+	<div class="container" id="previewer">
 	</div>
 
+	<input type="submit" class="btn btn-info" value="Export PDF" display="none">
+
+
+
+	<script id="hidden-template" type="text/x-custom-template">
+		  <div class="row">
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Title</h5></div>
+		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{name}}</h5></div>
+		  </div>
+		  <div class="row">
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Details</h5></div>
+		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{description}}</h5></div>
+		  </div>
+		  <div class="row">
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Price</h5></div>
+		    <div class="col-sm-10 card card-outline-secondary my-4 card-body">{{price}}</div>
+		  </div>
+		  {{#each images}}
+		  <div class="row">
+			  <div class="col-md-4">
+			    <div class="thumbnail">
+			        <img src="{{this}}">
+			    </div>
+			  </div>
+		  </div>
+		  {{/each}}
+	</script>
 	<script type="text/javascript">
+	var productData = new Object();
+	var arrImageData = [];
+	//Preview function click 
+	$(".btn-info").click(function(e){
+		//Create the data for object
+		productData.name = $("#product_name").val();
+		productData.description = $("#description").val();
+		productData.price = $("#price").val();
+		productData.isShowPrice = true;
+		productData.images = arrImageData;
+		//Load template file and render it 
+		var template = Handlebars.compile($('#hidden-template').html());
+		var result = template(productData);
+		$("#previewer").html(result);
+		//Display for user and hide current page
+	});
+
+	function createProductData(){
+
+	}
 	function showImage(src,target) {
 	  var fr=new FileReader();
 	  // when image is loaded, set the src of the image where you want to display it
@@ -98,9 +124,8 @@
 	  //load end then begin to resize this image;
 	  fr.onloadend = function(e){
 	  	dataObj = resizeImage(target);
-	  	target.src = dataObj.data;
-	  	target.width = dataObj.width;
-	  	target.height = dataObj.height;
+	  	//load the result
+	  	arrImageData.push(dataObj.data);
 	  }
 	  src.addEventListener("change",function() {
 	    // fill fr with image data    
@@ -109,7 +134,7 @@
 	}
 
 	var src = document.getElementById("src");
-	var target = document.getElementById("target");
+	var target = document.createElement("img");
 	showImage(src,target);
 	//Use this function to resize image
 	function resizeImage(img){
