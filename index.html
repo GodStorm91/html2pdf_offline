@@ -17,6 +17,7 @@
 	<script src="js/jquery.iframe-transport.js"></script>
 	<script src="js/jquery.fileupload.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
   </head>
 
   <body>
@@ -69,7 +70,7 @@
 	<div class="container" id="previewer">
 	</div>
 
-	<input type="submit" class="btn btn-info" value="Export PDF" display="none">
+	<input type="submit" class="btn btn-info" value="Export PDF" display="none" id="btnExport">
 
 
 
@@ -113,6 +114,16 @@
 		$("#previewer").html(result);
 		//Display for user and hide current page
 	});
+
+	$("#btnExport").click(function(e){
+		//using js pdf to export to pdf
+	    var doc = new jsPDF();
+	    doc.addHTML($('#previewer')[0], 15, 15, {
+	      'background': '#fff',
+	    }, function() {
+	      doc.save('sample-file.pdf');
+	    });
+	})
 
 	function createProductData(){
 
