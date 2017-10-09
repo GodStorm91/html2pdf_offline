@@ -8,9 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Item - Start Bootstrap Template</title>
-	<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <title>Product Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="vendor/jquery.ui.widget.js"></script>
@@ -23,7 +22,7 @@
   <body>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" id="inputPage">
 
       <div class="row">
         <!-- /.col-lg-3 -->
@@ -59,7 +58,7 @@
             </div>
           </div>
           <!-- /.card -->
-          <input type="submit" class="btn btn-info" value="Preview">
+          <input type="submit" class="btn btn-info" value="Preview" id="btnPreview">
         </div>
         <!-- /.col-lg-9 -->
 
@@ -101,7 +100,7 @@
 	var productData = new Object();
 	var arrImageData = [];
 	//Preview function click 
-	$(".btn-info").click(function(e){
+	$("#btnPreview").click(function(e){
 		//Create the data for object
 		productData.name = $("#product_name").val();
 		productData.description = $("#description").val();
@@ -112,6 +111,7 @@
 		var template = Handlebars.compile($('#hidden-template').html());
 		var result = template(productData);
 		$("#previewer").html(result);
+		$("#inputPage").hide();
 		//Display for user and hide current page
 	});
 
@@ -125,22 +125,25 @@
 	    });
 	})
 
-	function createProductData(){
+	function buildThumbnail(){
 
 	}
 	function showImage(src,target) {
-	  var fr=new FileReader();
-	  // when image is loaded, set the src of the image where you want to display it
-	  fr.onload = function(e) { target.src = this.result;};
-	  //load end then begin to resize this image;
-	  fr.onloadend = function(e){
-	  	dataObj = resizeImage(target);
-	  	//load the result
-	  	arrImageData.push(dataObj.data);
-	  }
 	  src.addEventListener("change",function() {
 	    // fill fr with image data    
-	    fr.readAsDataURL(src.files[0]);
+	    for (i = 0; i < src.files.length; i++){
+		  var fr=new FileReader();
+		  // when image is loaded, set the src of the image where you want to display it
+		  fr.onload = function(e) { target.src = this.result;};
+		  //load end then begin to resize this image;
+		  fr.onloadend = function(e){
+		  	dataObj = resizeImage(target);
+		  	//load the result
+		  	arrImageData.push(dataObj.data);
+		  }
+	    	fr.readAsDataURL(src.files[i]);
+	    }
+	    //fr.readAsDataURL(src.files[0]);
 	  });
 	}
 
