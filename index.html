@@ -10,13 +10,14 @@
 
     <title>Product Information</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="vendor/jquery.ui.widget.js"></script>
 	<script src="js/jquery.iframe-transport.js"></script>
 	<script src="js/jquery.fileupload.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
   </head>
 
   <body>
@@ -88,15 +89,21 @@
 		  </div>
 		  {{#each images}}
 		  <div class="row">
-			  <div class="col-md-4">
+			  <div class="col-md-6">
 			    <div class="thumbnail">
-			        <img src="{{this}}">
+			        <img src="{{this.image1}}">
+			    </div>
+			  </div>
+			  <div class="col-md-6">
+			    <div class="thumbnail">
+			        <img src="{{this.image2}}">
 			    </div>
 			  </div>
 		  </div>
 		  {{/each}}
 	</script>
 	<script type="text/javascript">
+	$("#btnExport").hide();
 	var productData = new Object();
 	var arrImageData = [];
 	//Preview function click 
@@ -106,22 +113,39 @@
 		productData.description = $("#description").val();
 		productData.price = $("#price").val();
 		productData.isShowPrice = true;
-		productData.images = arrImageData;
+		var arrManipulatedImageData = [];
+		//Manipulating the arrImageData to make it to some object like this 
+		//productData.images[i].image1 = xx
+		//productData.images[i].image2 = xxx
+		for (var i = 0; i < arrImageData.length; i=i+2) {
+			var objImages = new Object();
+			objImages.image1 = arrImageData[i];
+			if (i + 1 < arrImageData.length){
+				objImages.image2 = arrImageData[i+1];
+			}else{
+				objImages.image2 = "";
+			}
+			arrManipulatedImageData.push(objImages);
+		}
+
+		productData.images = arrManipulatedImageData;
 		//Load template file and render it 
 		var template = Handlebars.compile($('#hidden-template').html());
 		var result = template(productData);
 		$("#previewer").html(result);
 		$("#inputPage").hide();
+		$("#btnExport").show()
 		//Display for user and hide current page
 	});
 
 	$("#btnExport").click(function(e){
 		//using js pdf to export to pdf
+		var productName = $("#product_name").val();
 	    var doc = new jsPDF();
 	    doc.addHTML($('#previewer')[0], 15, 15, {
 	      'background': '#fff',
 	    }, function() {
-	      doc.save('sample-file.pdf');
+	      doc.save(productName + '.pdf');
 	    });
 	})
 
@@ -152,8 +176,8 @@
 	showImage(src,target);
 	//Use this function to resize image
 	function resizeImage(img){
-		var MAX_WIDTH = 100;
-		var MAX_HEIGHT = 100;
+		var MAX_WIDTH = 400;
+		var MAX_HEIGHT = 400;
 		var width = img.width;
 		var height = img.height;
 
