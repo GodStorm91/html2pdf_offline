@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Product Information</title>
+    <title>商品情報入力</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -30,18 +30,18 @@
 
           <div class="card mt-4">
             <div class="card-body">
-              <h3 class="card-title">Product Name</h3>
+              <h3 class="card-title">商品名</h3>
                 <input type="text" class="form-control" id="product_name">
             </div>
             <div class="card-body">
-              <h3 class="card-title">Details</h3>
+              <h3 class="card-title">詳細</h3>
 				<textarea class="form-control" rows="5" id="description"></textarea>
             </div>
             <div class="card-body">
-              <h3 class="card-title">Price</h3>
+              <h3 class="card-title">価格</h3>
                 <input type="text" class="form-control" id="price"> 
                 <div class="checkbox">
-  					<label><input type="checkbox" value="">Show Price to html</label>
+  					<label><input id="showPrice" type="checkbox" value="">価格表示</label>
 				</div>
             </div>
           </div>
@@ -49,7 +49,7 @@
 
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
-              Image Upload
+              画像アップロード
             </div>
             <div class="card-body">
               <input id="src" type="file" name="files[]" multiple>
@@ -74,17 +74,19 @@
 
 	<script id="hidden-template" type="text/x-custom-template">
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Title</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>商品名</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{name}}</h5></div>
 		  </div>
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Details</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>詳細</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{description}}</h5></div>
 		  </div>
+		  {{#if isShowPrice}}
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Price</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>価格</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body">{{price}}</div>
 		  </div>
+		  {{/if}}
 		  {{#each images}}
 		  <div class="row">
 			  <div class="col-md-6">
@@ -113,11 +115,8 @@
 		productData.name = $("#product_name").val();
 		productData.description = $("#description").val();
 		productData.price = $("#price").val();
-		productData.isShowPrice = true;
+		productData.isShowPrice = $('#' + "showPrice").is(":checked");
 		var arrManipulatedImageData = [];
-		//Manipulating the arrImageData to make it to some object like this 
-		//productData.images[i].image1 = xx
-		//productData.images[i].image2 = xxx
 		for (var i = 0; i < arrImageData.length; i=i+2) {
 			var objImages = new Object();
 			objImages.image1 = arrImageData[i];
