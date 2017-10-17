@@ -12,12 +12,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="vendor/jquery.ui.widget.js"></script>
-	<script src="js/jquery.iframe-transport.js"></script>
-	<script src="js/jquery.fileupload.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js">
+    </script>
   </head>
 
   <body>
@@ -106,6 +104,9 @@
 	$("#btnExport").hide();
 	var productData = new Object();
 	var arrImageData = [];
+	var	form = $('#previewer');
+	var cache_width = form.width();
+	var a4 = [595.28, 841.89]; // for a4 size paper width and height
 	//Preview function click 
 	$("#btnPreview").click(function(e){
 		//Create the data for object
@@ -139,19 +140,35 @@
 	});
 
 	$("#btnExport").click(function(e){
-		//using js pdf to export to pdf
-		var productName = $("#product_name").val();
-	    var doc = new jsPDF();
-	    doc.addHTML($('#previewer')[0], 15, 15, {
-	      'background': '#fff',
-	    }, function() {
-	      doc.save(productName + '.pdf');
-	    });
+		  $('body').scrollTop(0);
+  		  createPDF();
 	})
 
-	function buildThumbnail(){
+	 //create pdf
+	 function createPDF() {
+	  getCanvas().then(function(canvas) {
+	   var
+	    img = canvas.toDataURL("image/png"),
+	    doc = new jsPDF({
+	     unit: 'px',
+	     format: 'a4'
+	    });
+	   doc.addImage(img, 'JPEG', 20, 20);
+	   doc.save($("#product_name").val() + '.pdf');
+	   form.width(cache_width);
+	  });
+	 }
 
-	}
+	 // create canvas object
+	 function getCanvas() {
+	  form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+	  return html2canvas(form, {
+	   imageTimeout: 2000,
+	   removeContainer: true
+	  });
+	 }
+
+
 	function showImage(src,target) {
 	  src.addEventListener("change",function() {
 	    // fill fr with image data    
