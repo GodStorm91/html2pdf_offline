@@ -29,15 +29,15 @@
 
           <div class="card mt-4">
             <div class="card-body">
-              <h3 class="card-title">商品名</h3>
+              <h3 class="card-title">Name</h3>
                 <input type="text" class="form-control" id="product_name">
             </div>
             <div class="card-body">
-              <h3 class="card-title">詳細</h3>
+              <h3 class="card-title">Detail</h3>
 				<textarea class="form-control" rows="5" id="description"></textarea>
             </div>
             <div class="card-body">
-              <h3 class="card-title">価格</h3>
+              <h3 class="card-title">Price</h3>
                 <input type="text" class="form-control" id="price"> 
                 <div class="checkbox">
   					<label><input id="showPrice" type="checkbox" value="">価格表示</label>
@@ -73,28 +73,28 @@
 
 	<script id="hidden-template" type="text/x-custom-template">
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>商品名</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Name</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{name}}</h5></div>
 		  </div>
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>詳細</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Detail</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body"><h5>{{description}}</h5></div>
 		  </div>
 		  {{#if isShowPrice}}
 		  <div class="row">
-		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>価格</h5></div>
+		    <div class="col-sm-2 card card-outline-secondary my-4 card-header"><h5>Price</h5></div>
 		    <div class="col-sm-10 card card-outline-secondary my-4 card-body">{{price}}</div>
 		  </div>
 		  {{/if}}
 		  {{#each images}}
 		  <div class="row">
 			  <div class="col-md-6">
-			    <div class="thumbnail">
+			    <div class="thumbnail" style ="padding:20px;">
 			        <img src="{{this.image1}}">
 			    </div>
 			  </div>
 			  <div class="col-md-6">
-			    <div class="thumbnail">
+			    <div class="thumbnail" style ="padding:20px;">
 			        <img src="{{this.image2}}">
 			    </div>
 			  </div>
@@ -191,8 +191,8 @@
 	showImage(src,target);
 	//Use this function to resize image
 	function resizeImage(img){
-		var MAX_WIDTH = 400;
-		var MAX_HEIGHT = 400;
+		var MAX_WIDTH = 300;
+		var MAX_HEIGHT = 300;
 		var width = img.width;
 		var height = img.height;
 
