@@ -319,6 +319,10 @@ td:nth-child(2) {
 		canvas.width = width;
 		canvas.height = height;
 		var ctx = canvas.getContext("2d");
+		 ctx.mozImageSmoothingEnabled = true;
+		 ctx.webkitImageSmoothingEnabled = true;
+		 ctx.msImageSmoothingEnabled = true;
+		 ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0, 0, width, height);
 		var dataurl = canvas.toDataURL("image/png");
 		returnObject.width = width;
