@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>商品情報入力</title>
+	<title id="title">商品情報入力</title>
 	<link rel="stylesheet" href="bulma.css">
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -192,7 +192,8 @@ td:nth-child(2) {
 	$("#product_number").val(moment().format("YYYYMMDD"));
 	//Preview function click 
 	$("#btnPreview").click(function(e){
-		//Create the data for object
+		//Create the data for objectclick
+		document.title = $("#product_number").val();
 		productData.name = $("#product_name").val();
 		productData.description = $("#description").val();
 		productData.price = $("#price").val();
