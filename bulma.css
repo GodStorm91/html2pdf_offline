@@ -19,6 +19,10 @@
             transform: rotate(359deg);
   }
 }
+img.resize {
+    width:300px; /* you can use % */
+    height: auto;
+}
 
 /*! minireset.css v0.0.2 | MIT License | github.com/jgthms/minireset.css */
 html,
