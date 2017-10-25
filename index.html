@@ -119,8 +119,8 @@ td:nth-child(2) {
 </div>
 <div class="box has-text-centered" id="divButton">
 	<a class="button is-primary" id="btnPreview">Preview</a>
+	<a class="button is-danger" id="btnBack">Back</a>
 	<a class="button is-primary" id="btnExport">Export PDF</a>
-	<a class="button is-primary" id="btnBack">Back</a>
 </div>
 
 
@@ -170,7 +170,9 @@ td:nth-child(2) {
 					<img class="resize" src="{{this.image1}}">
 				</td>
 				<td>
+					{{#if this.image2}}
 					<img class="resize" src="{{this.image2}}">
+					{{/if}}
 				</td>
 			</tr>
 			{{#if this.pageBreak}}
@@ -241,7 +243,8 @@ td:nth-child(2) {
 		$("#btnPreview").show();
 		$("#btnExport").hide();
 		$("#btnBack").hide();
-		$("#previewer").hide();		
+		$("#previewer").html("");	
+		arrImageData = [];	
 	})
 	 //create pdf
 	 function createPDF() {
@@ -284,6 +287,12 @@ td:nth-child(2) {
 
 	 function showImage(src,target) {
 	 	src.addEventListener("change",function() {
+	 	var names  = "";
+	 	for (var i = 0; i < src.files.length; ++i) {
+		  var name = src.files.item(i).name;
+		  names = names + name + " ";
+		}
+	 	$(".file-name").html(names);
 	    // fill fr with image data    
 	    for (i = 0; i < src.files.length; i++){
 	    	var fr=new FileReader();
