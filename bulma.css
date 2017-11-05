@@ -20,7 +20,7 @@
   }
 }
 img.resize {
-    width:300px; /* you can use % */
+    width:200px; /* you can use % */
     height: auto;
 }
 
@@ -2958,13 +2958,13 @@ a.box:active {
   display: block;
   max-width: 100%;
   min-width: 100%;
-  padding: 0.625em;
+  padding: 0.1em;
   resize: vertical;
 }
 
 .textarea:not([rows]) {
   max-height: 600px;
-  min-height: 120px;
+  min-height: 80px;
 }
 
 .textarea[rows] {
@@ -5756,7 +5756,7 @@ a.dropdown-item.is-active {
 }
 
 .message:not(:last-child) {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .message strong {
@@ -5957,7 +5957,7 @@ a.dropdown-item.is-active {
   border: 1px solid #dbdbdb;
   border-radius: 3px;
   color: #4a4a4a;
-  padding: 1em 1.25em;
+  padding: 0.1em 0.1em;
 }
 
 .message-body code,
